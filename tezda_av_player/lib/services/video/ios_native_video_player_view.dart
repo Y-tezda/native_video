@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:preload_page_view/preload_page_view.dart';
 import 'package:tezda_av_player/services/video/native_video_player_controller.dart';
 import 'package:tezda_av_player/services/video/video_source.dart';
 import 'package:visibility_detector/visibility_detector.dart';
