@@ -18,7 +18,6 @@ class _VideoScrollScreenState extends State<VideoScrollScreen> {
   List<String> videoSources = [
     "https://flipfit-cdn.akamaized.net/flip_hls/661f570aab9d840019942b80-473e0b/video_h1.m3u8",
     "https://flipfit-cdn.akamaized.net/flip_hls/662aae7a42cd740019b91dec-3e114f/video_h1.m3u8",
-    'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.mp4/.m3u8',
     "https://flipfit-cdn.akamaized.net/flip_hls/663e5a1542cd740019b97dfa-ccf0e6/video_h1.m3u8",
     "https://flipfit-cdn.akamaized.net/flip_hls/663d1244f22a010019f3ec12-f3c958/video_h1.m3u8",
     "https://flipfit-cdn.akamaized.net/flip_hls/664ce52bd6fcda001911a88c-8f1c4d/video_h1.m3u8",
@@ -59,7 +58,6 @@ class _VideoScrollScreenState extends State<VideoScrollScreen> {
         print(value);
         // _currentPage = value;
       },
-      preloadPagesCount: 2,
       physics: const AlwaysScrollableScrollPhysics(),
       controller: _pageController,
       scrollDirection: Axis.vertical,
