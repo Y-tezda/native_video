@@ -10,19 +10,20 @@ import UIKit
     GeneratedPluginRegistrant.register(with: self)
       
       
-      guard let pluginRegistrar = self.registrar(forPlugin: "plugin-name") else { return false }
+      guard let pluginRegistrar = self.registrar(forPlugin: "native_video_player_view") else { return false }
 
-      let FLNativefactory = FLNativeViewFactory(messenger: pluginRegistrar.messenger())
+       let FLNativefactory = FLNativeViewFactory(messenger: pluginRegistrar.messenger())
       pluginRegistrar.register(
           FLNativefactory,
           withId: "<platform-view-type>")
-          print("factory registered")
-      
+
+       
       let VideoPluginFactory = NativeVideoPlayerViewFactory(messenger: pluginRegistrar.messenger())
       pluginRegistrar.register(
         VideoPluginFactory,
         withId: NativeVideoPlayerViewFactory.id)
-        print("native factory registered")
+        print("plugin loaded")
+      
 
        
    

@@ -15,7 +15,7 @@ class NativeVideoPlayerApi {
     required this.onPlaybackEnded,
     required this.onError,
   }) {
-    final name = 'tezda.native.video.$viewId';
+    final name = 'tezda.video.$viewId';
     _channel = MethodChannel(name);
     _channel.setMethodCallHandler(_handleMethodCall);
   }
@@ -24,9 +24,9 @@ class NativeVideoPlayerApi {
     _channel.setMethodCallHandler(null);
   }
 
-  Future<dynamic> _handleMethodCall(MethodCall call) {
+  Future _handleMethodCall(MethodCall call) async {
     switch (call.method) {
-      case 'onPlaybackReady':
+      case "onPlaybackReady":
         onPlaybackReady();
       case 'onPlaybackEnded':
         onPlaybackEnded();
@@ -35,8 +35,9 @@ class NativeVideoPlayerApi {
         // final errorMessage = call.arguments['errorMessage'] as String;
         final message = call.arguments as String;
         onError(message);
+      default:
+        onError('Un implemented : ${call.method}');
     }
-    throw UnsupportedError('Unrecognized method ${call.method}');
   }
 
   Future<void> loadVideoSource(VideoSource videoSource) async {

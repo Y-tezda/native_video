@@ -6,7 +6,6 @@ import 'package:tezda_av_player/services/video/playback_info.dart';
 import 'package:tezda_av_player/services/video/video_info.dart';
 import 'package:tezda_av_player/services/video/video_source.dart';
 
-
 class NativeVideoPlayerController with ChangeNotifier {
   late final NativeVideoPlayerApi _api;
   VideoSource? _videoSource;
@@ -105,6 +104,7 @@ class NativeVideoPlayerController with ChangeNotifier {
   void dispose() {
     _stopPlaybackPositionTimer();
     _api.dispose();
+
     super.dispose();
   }
 
@@ -146,7 +146,7 @@ class NativeVideoPlayerController with ChangeNotifier {
     await _api.stop();
     _stopPlaybackPositionTimer();
     onPlaybackStatusChanged.value = PlaybackStatus.stopped;
-    await _onPlaybackPositionTimerChanged(null);
+    //  await _onPlaybackPositionTimerChanged(null);
   }
 
   /// Returns true if the video is playing, or false if it's stopped or paused.

@@ -22,7 +22,7 @@ class NativeVideoPlayerApi {
         messenger: FlutterBinaryMessenger,
         viewId: Int64
     ) {
-        let name = "tezda.native.video.\(viewId)"
+        let name = "tezda.video.\(viewId)"
         channel = FlutterMethodChannel(
             name: name,
             binaryMessenger: messenger
