@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tezda_av_player/services/video/native_video_player_controller.dart';
 import 'package:tezda_av_player/services/video/video_source.dart';
@@ -29,11 +30,11 @@ class _IosNativeVideoPlayerViewState extends State<IosNativeVideoPlayerView> {
 
   Widget _buildNativeView() {
     final viewType = 'native_video_player_view';
-
     return VisibilityDetector(
       key: widget.key!,
       onVisibilityChanged: _handleVisibilityDetector,
       child: UiKitView(
+        hitTestBehavior: PlatformViewHitTestBehavior.translucent,
         viewType: viewType,
         onPlatformViewCreated: onPlatformViewCreated,
         // creationParams: creationParams,
@@ -48,27 +49,19 @@ class _IosNativeVideoPlayerViewState extends State<IosNativeVideoPlayerView> {
 
     await controller?.loadVideoSource(
         VideoSource(path: widget.url, type: VideoSourceType.network));
-    await controller?.setVolume(1);
 
     controller?.onPlaybackEnded.addListener(() async {
       await controller?.play();
     });
-/*     widget.pageController.addListener(() {
-      controller?.pause();
-    }); */
+
     VisibilityDetectorController.instance.updateInterval =
         Duration(milliseconds: 400);
   }
 
   void _handleVisibilityDetector(VisibilityInfo info) async {
     if (controller != null) {
-      if (info.visibleFraction <= 0.2) {
+      if (info.visibleFraction <= 0.5) {
         await controller?.stop();
-      } else if (info.visibleFraction <= 0.9) {
-        await controller?.pause();
-
-        print(
-            'pausing video ${widget.url} visibility :${info.visibleFraction}');
       } else {
         await controller?.play();
         print(

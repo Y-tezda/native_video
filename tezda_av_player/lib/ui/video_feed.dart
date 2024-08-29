@@ -16,6 +16,7 @@ class VideoScrollScreen extends StatefulWidget {
 
 class _VideoScrollScreenState extends State<VideoScrollScreen> {
   List<String> videoSources = [
+    "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
     "https://flipfit-cdn.akamaized.net/flip_hls/661f570aab9d840019942b80-473e0b/video_h1.m3u8",
     "https://flipfit-cdn.akamaized.net/flip_hls/662aae7a42cd740019b91dec-3e114f/video_h1.m3u8",
     "https://flipfit-cdn.akamaized.net/flip_hls/663e5a1542cd740019b97dfa-ccf0e6/video_h1.m3u8",
@@ -31,39 +32,17 @@ class _VideoScrollScreenState extends State<VideoScrollScreen> {
   ];
   final PreloadPageController _pageController =
       PreloadPageController(initialPage: 0, keepPage: true);
-/* 
-  int _currentPage = 0;
-  bool _isOnPageTurning = false;
-  void _scrollListener() {
-    if (_isOnPageTurning &&
-        _pageController.page == _pageController.page!.roundToDouble()) {
-      setState(() {
-        _currentPage = _pageController.page!.toInt();
-        _isOnPageTurning = false;
-      });
-    } else if (!_isOnPageTurning &&
-        _currentPage.toDouble() != _pageController.page) {
-      if ((_currentPage.toDouble() - _pageController.page!).abs() > 0.7) {
-        setState(() {
-          _isOnPageTurning = true;
-        });
-      }
-    }
-  }
- */
   @override
   Widget build(BuildContext context) {
     return PreloadPageView.builder(
       onPageChanged: (value) {
         print(value);
-        // _currentPage = value;
       },
+      preloadPagesCount: 3,
       physics: const AlwaysScrollableScrollPhysics(),
       controller: _pageController,
       scrollDirection: Axis.vertical,
       itemBuilder: (context, index) {
-        // _pageController.addListener(_scrollListener);
-
         return IosNativeVideoPlayerView(
           key: Key((index + 1).toString()),
           url: videoSources[index],

@@ -6,7 +6,6 @@ public class NativeVideoPlayerViewController: NSObject, FlutterPlatformView {
     private let api: NativeVideoPlayerApi
     private let player: AVPlayer
     private let playerView: NativeVideoPlayerView
-
     init(
         messenger: FlutterBinaryMessenger,
         viewId: Int64,
@@ -17,9 +16,17 @@ public class NativeVideoPlayerViewController: NSObject, FlutterPlatformView {
             viewId: viewId
         )
         player = AVPlayer(playerItem: nil)
+        
+        
         playerView = NativeVideoPlayerView(frame: frame, player: player)
-        super.init()
+       
+    
 
+        super.init()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        playerView.addGestureRecognizer(tap)
+        playerView.isUserInteractionEnabled = true
+        
         api.delegate = self
         player.addObserver(self, forKeyPath: "status", context: nil)
     }
@@ -32,9 +39,15 @@ public class NativeVideoPlayerViewController: NSObject, FlutterPlatformView {
     }
 
     public func view() -> UIView {
+        
         playerView
     }
+    
+    @objc func handleTap(_ sender: UITapGestureRecognizer) {
+        self.isPlaying() ? self.pause(): self.play()
 
+    }
+    
 }
 
 extension NativeVideoPlayerViewController: NativeVideoPlayerApiDelegate {
@@ -49,6 +62,7 @@ extension NativeVideoPlayerViewController: NativeVideoPlayerApiDelegate {
         }
         let videoAsset = AVAsset(url: uri)
         let playerItem = AVPlayerItem(asset: videoAsset)
+        
 
         removeOnVideoCompletedObserver()
         player.replaceCurrentItem(with: playerItem)
